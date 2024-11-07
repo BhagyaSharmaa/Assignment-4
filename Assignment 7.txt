@@ -1,0 +1,213 @@
+test> use university
+switched to db university
+university> db.createCollection("Products")
+{ ok: 1 }
+university> db.Products.insertMany([{price:200, stock:200},{price:400, stock:300},{price:500, stock:900},{price:70, stock:null}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('672c81bb1aedb1955f0d8190'),
+    '1': ObjectId('672c81bb1aedb1955f0d8191'),
+    '2': ObjectId('672c81bb1aedb1955f0d8192'),
+    '3': ObjectId('672c81bb1aedb1955f0d8193')
+  }
+}
+university> db.Products.find({price: {$gt:20, $lte:100}, stock:{$gt:0}})
+[
+  {
+    _id: ObjectId('672b292375b0adb5d70d8195'),
+    product_name: 'Oil',
+    stock: 200,
+    price: 100
+  },
+  {
+    _id: ObjectId('672b292375b0adb5d70d8196'),
+    product_name: 'Brush',
+    stock: 300,
+    price: 100
+  }
+]
+--------------------------------------------------------------------------
+university> db.createCollection("Balak")
+{ ok: 1 }
+university> db.Balak.insertMany([{grade:90, att:95, age:17},{grade:85, att:67, age:20},{grade:100, att:100, age:18}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('672c84c01aedb1955f0d8194'),
+    '1': ObjectId('672c84c01aedb1955f0d8195'),
+    '2': ObjectId('672c84c01aedb1955f0d8196')
+  }
+}
+university> db.Balak.find({grade:{$gt:85}, att:{$gt:90}, age:{$lt:18}})
+[
+  {
+    _id: ObjectId('672c84c01aedb1955f0d8194'),
+    grade: 90,
+    att: 95,
+    age: 17
+  }
+]
+---------------------------------------------------------------
+university> db.createCollection("Jobs")
+{ ok: 1 }
+university> db.Jobs.insertMany([{salary:50001, location:"New York"},{salary:55000, location:"San Francisco"},{salary:30000, location:"Bangalore"},{salary:70000, location:"Ambala"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('672c85ae1aedb1955f0d8197'),
+    '1': ObjectId('672c85ae1aedb1955f0d8198'),
+    '2': ObjectId('672c85ae1aedb1955f0d8199'),
+    '3': ObjectId('672c85ae1aedb1955f0d819a')
+  }
+}
+university> db.Jobs.find({salary:{$gt:50000}, location:{$in:["New York", "San Francisco"]}})
+[
+  {
+    _id: ObjectId('672c85ae1aedb1955f0d8197'),
+    salary: 50001,
+    location: 'New York'
+  },
+  {
+    _id: ObjectId('672c85ae1aedb1955f0d8198'),
+    salary: 55000,
+    location: 'San Francisco'
+  }
+]
+------------------------------------------
+university> db.createCollection("Saamaan")
+{ ok: 1 }
+university> db.Saamaan.insertMany([{cat:"electronics", disc:20, stock:200},{cat:"Grocery", disc:30, stock:100},{cat:"electronics", disc:20, stock:100}])
+
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('672c86e81aedb1955f0d819b'),
+    '1': ObjectId('672c86e81aedb1955f0d819c'),
+    '2': ObjectId('672c86e81aedb1955f0d819d')
+  }
+}
+--------------------------------------------------
+university> db.Saamaan.find({cat:"electronics", discount:{$gte:10}, stock:{$
+$gt:0}})
+
+university> db.Saamaan.find({cat:"electronics", disc:{$gte:10}, stock:{$gt:0}})
+[
+  {
+    _id: ObjectId('672c86e81aedb1955f0d819b'),
+    cat: 'electronics',
+    disc: 20,
+    stock: 200
+  },
+  {
+    _id: ObjectId('672c86e81aedb1955f0d819d'),
+    cat: 'electronics',
+    disc: 20,
+    stock: 100
+  }
+]
+-----------------------------------------
+university> db.createCollection("ORDERS")
+{ ok: 1 }
+university> db.ORDERS.insertMany([{status:"pending", customer_type:"VIP", amount:600},{status:"not pending", customer_type:"NON-VIP", amount:4000},{status:"pending", customer_type:"NON-VIP", amount:300},{status:"pending", customer_type:"VIP"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('672c890c1aedb1955f0d819e'),
+    '1': ObjectId('672c890c1aedb1955f0d819f'),
+    '2': ObjectId('672c890c1aedb1955f0d81a0'),
+    '3': ObjectId('672c890c1aedb1955f0d81a1')
+  }
+}
+university> db.ORDERS.find({status:"pending", $or:[{customer_type:"VIP"}, {anount:{$gt:500}}]})
+[
+  {
+    _id: ObjectId('672c890c1aedb1955f0d819e'),
+    status: 'pending',
+    customer_type: 'VIP',
+    amount: 600
+  },
+  {
+    _id: ObjectId('672c890c1aedb1955f0d81a1'),
+    status: 'pending',
+    customer_type: 'VIP'
+  }
+]
+--------------------------------------------------------
+university> db.students.find({$or:[{$and:[{age:{$gt:18}},{grade:{$lt:60}}]},
+{attendance:{$lt:75}}]})
+
+university> db.students.find({ $or: [{ $and: [{ age: { $gt: 18 } }, { grade: { $lt: 60 } }] }, { att: { $lt: 75 } }] })
+---------------------------------------------------------
+university> db.products.find({category:"furniture",$or:[{price:{$lt:200}},{s
+stock:{$lt:5}}]})
+---------------------------------------------------------
+university> db.createCollection("Items")
+{ ok: 1 }
+university> db.Items.insertMany([{type:"software", price:70},{type:"service", price:60},{type:"hardware", price:150}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('672c8ae31aedb1955f0d81a2'),
+    '1': ObjectId('672c8ae31aedb1955f0d81a3'),
+    '2': ObjectId('672c8ae31aedb1955f0d81a4')
+  }
+}
+university> db.Items.find({type:{$in:["software", "service"]},price:{$lt:100
+}})
+[
+  {
+    _id: ObjectId('672c8ae31aedb1955f0d81a2'),
+    type: 'software',
+    price: 70
+  },
+  {
+    _id: ObjectId('672c8ae31aedb1955f0d81a3'),
+    type: 'service',
+    price: 60
+  }
+]
+-----------------------------------------------------------
+university> db.createCollection("Service")
+{ ok: 1 }
+university> db.Service.insertMany([{xp:6, dept:"Engineering"},{xp:9, dept:"HR"},{xp:3, dept:"Service"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('672c8bb21aedb1955f0d81a5'),
+    '1': ObjectId('672c8bb21aedb1955f0d81a6'),
+    '2': ObjectId('672c8bb21aedb1955f0d81a7')
+  }
+}
+university> db.Service.find({$or:[{experience:{$gt:5}},{dept:{$in:["Engineering","HR"]}}]})
+[
+  {
+    _id: ObjectId('672c8bb21aedb1955f0d81a5'),
+    xp: 6,
+    dept: 'Engineering'
+  },
+  { _id: ObjectId('672c8bb21aedb1955f0d81a6'), xp: 9, dept: 'HR' }
+]
+------------------------------------------------------------
+university> db.createCollection("Things")
+{ ok: 1 }
+university> db.Things.insertMany([{status:"urgent", tot:1100, priority:"high"},{status:"not urgent", tot:2000, priority:"low"},{status:"urgent", priority:"high", priority:"low"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('672c8cd31aedb1955f0d81a8'),
+    '1': ObjectId('672c8cd31aedb1955f0d81a9'),
+    '2': ObjectId('672c8cd31aedb1955f0d81aa')
+  }
+}
+university> db.Things.find({$or:[{$and:[{status:"urgent"},{tot:{$gt:1000}}]},{priority:"high"}]})
+[
+  {
+    _id: ObjectId('672c8cd31aedb1955f0d81a8'),
+    status: 'urgent',
+    tot: 1100,
+    priority: 'high'
+  }
+]
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
